@@ -4,7 +4,6 @@ import { useState, useCallback, memo } from 'react';
 import {
   Box,
   TextField,
-  Grid,
   Card,
   CardMedia,
   CardContent,
@@ -116,35 +115,31 @@ export default function ProductsPage() {
         Products Management
       </Typography>
 
-      <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid item xs={12} md={8}>
-          <TextField
-            fullWidth
-            label="Search products"
-            variant="outlined"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            placeholder="Search by title, brand, or description..."
-          />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <FormControl fullWidth>
-            <InputLabel>Category</InputLabel>
-            <Select
-              value={selectedCategory}
-              label="Category"
-              onChange={handleCategoryChange}
-            >
-              <MenuItem value="all">All Categories</MenuItem>
-              {categories.map((category, index) => (
-                <MenuItem key={`category-${category}-${index}`} value={category}>
-                  {typeof category === 'string' ? category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : category}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-      </Grid>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' }, gap: 2, mb: 3 }}>
+        <TextField
+          fullWidth
+          label="Search products"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder="Search by title, brand, or description..."
+        />
+        <FormControl fullWidth>
+          <InputLabel>Category</InputLabel>
+          <Select
+            value={selectedCategory}
+            label="Category"
+            onChange={handleCategoryChange}
+          >
+            <MenuItem value="all">All Categories</MenuItem>
+            {categories.map((category, index) => (
+              <MenuItem key={`category-${category}-${index}`} value={category}>
+                {typeof category === 'string' ? category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : category}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
 
       {loading ? (
         <Box display="flex" justifyContent="center" p={4}>
@@ -152,13 +147,11 @@ export default function ProductsPage() {
         </Box>
       ) : (
         <>
-          <Grid container spacing={3}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }, gap: 3 }}>
             {products.map((product) => (
-              <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-                <ProductCard product={product} />
-              </Grid>
+              <ProductCard key={product.id} product={product} />
             ))}
-          </Grid>
+          </Box>
 
           {totalPages > 1 && (
             <Box display="flex" justifyContent="center" mt={4}>

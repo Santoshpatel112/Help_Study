@@ -8,7 +8,6 @@ import {
   Paper,
   Typography,
   CircularProgress,
-  Grid,
   Button,
   Rating,
   Chip,
@@ -50,8 +49,8 @@ export default function ProductDetailPage() {
       </Button>
 
       <Paper sx={{ p: 4 }}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 4 }}>
+          <Box>
             <Box
               sx={{
                 width: '100%',
@@ -72,36 +71,35 @@ export default function ProductDetailPage() {
                 }}
               />
             </Box>
-            <Grid container spacing={1}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 1 }}>
               {product.images.map((image: string, index: number) => (
-                <Grid item xs={3} key={index}>
-                  <Box
-                    onClick={() => setSelectedImage(index)}
-                    sx={{
-                      cursor: 'pointer',
-                      border: selectedImage === index ? 2 : 1,
-                      borderColor: selectedImage === index ? 'primary.main' : 'grey.300',
-                      borderRadius: 1,
-                      overflow: 'hidden',
-                      height: 80,
+                <Box
+                  key={index}
+                  onClick={() => setSelectedImage(index)}
+                  sx={{
+                    cursor: 'pointer',
+                    border: selectedImage === index ? 2 : 1,
+                    borderColor: selectedImage === index ? 'primary.main' : 'grey.300',
+                    borderRadius: 1,
+                    overflow: 'hidden',
+                    height: 80,
+                  }}
+                >
+                  <img
+                    src={image}
+                    alt={`${product.title} ${index + 1}`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
                     }}
-                  >
-                    <img
-                      src={image}
-                      alt={`${product.title} ${index + 1}`}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                    />
-                  </Box>
-                </Grid>
+                  />
+                </Box>
               ))}
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
 
-          <Grid item xs={12} md={6}>
+          <Box>
             <Typography variant="h4" gutterBottom>
               {product.title}
             </Typography>
@@ -139,36 +137,36 @@ export default function ProductDetailPage() {
 
             <Divider sx={{ my: 3 }} />
 
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2 }}>
+              <Box>
                 <Typography variant="body2" color="text.secondary">
                   Stock
                 </Typography>
                 <Typography variant="body1">
                   {product.stock > 0 ? `${product.stock} units` : 'Out of stock'}
                 </Typography>
-              </Grid>
-              <Grid item xs={6}>
+              </Box>
+              <Box>
                 <Typography variant="body2" color="text.secondary">
                   SKU
                 </Typography>
                 <Typography variant="body1">{product.sku || 'N/A'}</Typography>
-              </Grid>
-              <Grid item xs={6}>
+              </Box>
+              <Box>
                 <Typography variant="body2" color="text.secondary">
                   Weight
                 </Typography>
                 <Typography variant="body1">{product.weight || 'N/A'} g</Typography>
-              </Grid>
-              <Grid item xs={6}>
+              </Box>
+              <Box>
                 <Typography variant="body2" color="text.secondary">
                   Warranty
                 </Typography>
                 <Typography variant="body1">
                   {product.warrantyInformation || 'N/A'}
                 </Typography>
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
 
             {product.tags && product.tags.length > 0 && (
               <Box sx={{ mt: 3 }}>
@@ -182,8 +180,8 @@ export default function ProductDetailPage() {
                 </Box>
               </Box>
             )}
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Paper>
     </Box>
   );

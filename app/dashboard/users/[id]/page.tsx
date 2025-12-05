@@ -8,7 +8,6 @@ import {
   Typography,
   CircularProgress,
   Avatar,
-  Grid,
   Button,
   Divider,
   Chip,
@@ -62,8 +61,8 @@ export default function UserDetailPage() {
 
         <Divider sx={{ my: 3 }} />
 
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
+          <Box>
             <Typography variant="h6" gutterBottom>
               Contact Information
             </Typography>
@@ -89,9 +88,9 @@ export default function UserDetailPage() {
                 {user.birthDate || 'N/A'}
               </Typography>
             </Box>
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} md={6}>
+          <Box>
             <Typography variant="h6" gutterBottom>
               Address
             </Typography>
@@ -119,40 +118,40 @@ export default function UserDetailPage() {
                 {user.company?.department}
               </Typography>
             </Box>
-          </Grid>
+          </Box>
+        </Box>
 
-          <Grid item xs={12}>
-            <Typography variant="h6" gutterBottom>
-              Additional Information
-            </Typography>
-            <Grid container spacing={2} sx={{ mt: 1 }}>
-              <Grid item xs={6} md={3}>
-                <Typography variant="body2" color="text.secondary">
-                  Age
-                </Typography>
-                <Typography variant="body1">{user.age}</Typography>
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <Typography variant="body2" color="text.secondary">
-                  Blood Group
-                </Typography>
-                <Typography variant="body1">{user.bloodGroup || 'N/A'}</Typography>
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <Typography variant="body2" color="text.secondary">
-                  Height
-                </Typography>
-                <Typography variant="body1">{user.height || 'N/A'} cm</Typography>
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <Typography variant="body2" color="text.secondary">
-                  Weight
-                </Typography>
-                <Typography variant="body1">{user.weight || 'N/A'} kg</Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+        <Box sx={{ mt: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            Additional Information
+          </Typography>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 2, mt: 1 }}>
+            <Box>
+              <Typography variant="body2" color="text.secondary">
+                Age
+              </Typography>
+              <Typography variant="body1">{user.age}</Typography>
+            </Box>
+            <Box>
+              <Typography variant="body2" color="text.secondary">
+                Blood Group
+              </Typography>
+              <Typography variant="body1">{user.bloodGroup || 'N/A'}</Typography>
+            </Box>
+            <Box>
+              <Typography variant="body2" color="text.secondary">
+                Height
+              </Typography>
+              <Typography variant="body1">{user.height || 'N/A'} cm</Typography>
+            </Box>
+            <Box>
+              <Typography variant="body2" color="text.secondary">
+                Weight
+              </Typography>
+              <Typography variant="body1">{user.weight || 'N/A'} kg</Typography>
+            </Box>
+          </Box>
+        </Box>
       </Paper>
     </Box>
   );
